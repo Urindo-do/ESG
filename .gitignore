@@ -1,0 +1,18 @@
+# 환경 변수 / 비밀 값 (Supabase 키 등) — 절대 커밋 금지
+.env
+.env.*
+!.env.example
+
+# Node / Vite (프론트엔드 작업 시작하면 자동으로 걸러짐)
+node_modules/
+dist/
+.vite/
+
+# OS / 에디터 잡파일
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# 로그
+*.log

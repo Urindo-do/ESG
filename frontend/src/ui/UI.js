@@ -112,7 +112,7 @@ export function createUI(root, handlers, { dev = false } = {}) {
   let devValue = null;
   if (dev) {
     devPanel = el('details', 'hv-dev');
-    devPanel.innerHTML = `<summary>개발용 패널</summary>
+    devPanel.innerHTML = `<summary>개발용 패널 — 테스트용, 실제 점수에는 저장되지 않아요</summary>
       <label class="hv-dev-row"><span>청결 점수</span><input type="range" min="0" max="100" step="1" id="hv-dev-score"><output id="hv-dev-value">0</output></label>
       <div class="hv-dev-row hv-dev-buttons">
         <button type="button" data-score="85">happy</button>

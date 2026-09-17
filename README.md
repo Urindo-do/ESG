@@ -56,7 +56,7 @@ ESG/
 ## 기술 스택
 
 - **Frontend**: Vite + 바닐라 JavaScript + Three.js (3D 마을 완성됨), Blender로 만든 GLB 캐릭터·마을 에셋
-- **Backend / Infra**: Supabase (Auth, Postgres, Storage, Edge Functions)
+- **Backend / Infra**: Supabase (Auth — Google 로그인 기본·이메일은 테스트용, Postgres, Storage, Edge Functions)
 - **AI**: 멀티모달 LLM API (사진 속 빈 그릇·제품·문구 판정)
 - **Data**: Python + Pandas (공공데이터 인증 제품 전처리)
 - **배포**: Vercel (S7)

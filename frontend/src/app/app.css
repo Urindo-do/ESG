@@ -1,0 +1,182 @@
+/* 로그인·홈 화면 공통 스타일 (village.js 안의 3D UI 스타일과는 별개) */
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  height: 100%;
+  background: #cfe8d2;
+  color: #2c3a2c;
+  font-family: 'Gowun Dodum', 'Apple SD Gothic Neo', 'Malgun Gothic', system-ui, sans-serif;
+}
+
+#app { min-height: 100%; }
+
+/* ── 로그인 · 회원가입 ─────────────────────────────────── */
+.auth-wrap {
+  min-height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+.auth-card {
+  width: 100%;
+  max-width: 360px;
+  background: #fffaf0;
+  border-radius: 20px;
+  padding: 28px 24px;
+  box-shadow: 0 6px 18px rgba(46, 70, 40, 0.16);
+}
+.auth-card h1 {
+  margin: 0 0 16px;
+  font-size: 1.4rem;
+  text-align: center;
+  font-family: 'Jua', 'Gowun Dodum', sans-serif;
+}
+.auth-google {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 12px;
+  margin-bottom: 12px;
+  border: 1px solid #dcdcd2;
+  border-radius: 12px;
+  background: #fff;
+  font: inherit;
+  font-size: 1rem;
+  cursor: pointer;
+}
+.auth-google-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #4285f4;
+  color: #fff;
+  font-weight: bold;
+  font-size: 0.8rem;
+}
+.auth-email-details { margin: 0 0 12px; }
+.auth-email-details summary {
+  cursor: pointer;
+  font-size: 0.85rem;
+  color: #6f7d6c;
+  padding: 6px 0;
+}
+.auth-email-details .auth-tabs { margin-top: 12px; }
+.auth-guest {
+  display: block;
+  margin: 4px auto 0;
+  border: none;
+  background: none;
+  color: #6f7d6c;
+  font: inherit;
+  font-size: 0.82rem;
+  text-decoration: underline;
+  cursor: pointer;
+}
+.auth-tabs { display: flex; gap: 8px; margin-bottom: 16px; }
+.auth-tab {
+  flex: 1;
+  padding: 8px;
+  border: none;
+  border-radius: 10px;
+  background: #f0efe6;
+  cursor: pointer;
+  font: inherit;
+}
+.auth-tab.active { background: #3c8a3f; color: #fff; }
+.auth-form { display: flex; flex-direction: column; gap: 12px; }
+.auth-form label { display: flex; flex-direction: column; gap: 4px; font-size: 0.9rem; }
+.auth-form input {
+  padding: 10px 12px;
+  border: 1px solid #cfcfc0;
+  border-radius: 10px;
+  font: inherit;
+}
+.auth-error, .auth-email-error { color: #b3261e; font-size: 0.85rem; margin: 0; }
+.auth-submit {
+  margin-top: 4px;
+  padding: 12px;
+  border: none;
+  border-radius: 12px;
+  background: #3c8a3f;
+  color: #fff;
+  font-size: 1rem;
+  cursor: pointer;
+}
+.auth-submit:disabled { opacity: 0.6; cursor: default; }
+
+/* ── 홈 ────────────────────────────────────────────────── */
+.home-wrap { position: fixed; inset: 0; }
+.home-village { position: absolute; inset: 0; }
+
+/* 임시: 마을 상단 카드와 겹칠 수 있음 — S4에서 화면 배치 다시 볼 때 정리 */
+.home-topbar {
+  position: absolute;
+  top: calc(env(safe-area-inset-top, 0px) + 12px);
+  right: 12px;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.home-nickname {
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.85);
+  font-size: 0.8rem;
+}
+.home-logout {
+  padding: 8px 14px;
+  border: none;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.85);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.85rem;
+}
+
+.home-guest-banner {
+  position: absolute;
+  top: calc(env(safe-area-inset-top, 0px) + 12px);
+  left: 12px;
+  right: 12px;
+  z-index: 5;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 8px 14px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
+  font-size: 0.82rem;
+  text-align: center;
+}
+.home-login-request {
+  padding: 6px 12px;
+  border: none;
+  border-radius: 999px;
+  background: #3c8a3f;
+  color: #fff;
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.82rem;
+}
+.home-guest-reset {
+  padding: 6px 12px;
+  border: 1px solid #cfcfc0;
+  border-radius: 999px;
+  background: #fff;
+  color: #2c3a2c;
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.82rem;
+}

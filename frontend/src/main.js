@@ -1,40 +1,48 @@
-// 개발용 실행 파일: 가짜 점수·가짜 인증으로 3D 화면을 확인한다.
-// 실제 앱에서는 이 파일 대신 Supabase 결과를 받아 village API를 호출한다.
-import { createVillage } from './village.js';
+// 앱 시작 — 로그인 상태 / 게스트 둘러보기 / 로그인 화면을 전환한다
+import './app/app.css';
+import { supabase } from './app/supabase.js';
+import { renderLogin } from './app/screens/login.js';
+import { renderHome } from './app/screens/home.js';
 
-const params = new URLSearchParams(location.search);
-const dev = import.meta.env.DEV || params.has('dev');
-const startScore = params.has('score') ? Number(params.get('score')) : 62;
+const root = document.querySelector('#app');
 
-let score = startScore;
-const remaining = { meal: 3, product: 2, phrase: 10 };
-const POINTS = { meal: 10, product: 10, phrase: 1 };
+// null과 절대 같아질 수 없는 값으로 시작해야 로그인 안 된 첫 실행에서도 화면이 그려진다
+// (9/18에 고친 문제: 초기값이 null이면 첫 INITIAL_SESSION(session=null) 이벤트가 "같은 상태"로 보여 아무것도 안 그려짐)
+let currentUserId = Symbol('초기값');
+let disposeCurrent = null;
+let guestMode = false; // 게스트 모드는 새로고침하면 풀린다 (저장하지 않음)
 
-const village = createVillage(document.querySelector('#app'), {
-  initialScore: score,
-  remaining,
-  dev,
-  onDevScore: s => { score = s; },
-});
-
-// 가짜 인증: 버튼을 누르면 0.8초 뒤 성공 처리
-village.onMissionSelect(async kind => {
-  if (remaining[kind] <= 0) return;
-  await new Promise(r => setTimeout(r, 800));
-  remaining[kind] -= 1;
-  score = Math.min(100, score + POINTS[kind]);
-  village.setRemaining(remaining);
-  village.setCleanliness(score);
-  village.celebrate(POINTS[kind]);
-});
-
-if (params.has('action')) {
-  village.ready.then(() => {
-    window.__village = village;
+function showLogin() {
+  guestMode = false;
+  disposeCurrent?.();
+  disposeCurrent = null;
+  renderLogin(root, {
+    onGuestMode: () => {
+      guestMode = true;
+      disposeCurrent?.();
+      disposeCurrent = null;
+      renderHome(root, { session: null, onLoginRequest: showLogin }).then(dispose => {
+        disposeCurrent = dispose;
+      });
+    },
   });
 }
-window.__village = village;
 
-if (import.meta.hot) {
-  import.meta.hot.dispose(() => village.dispose());
-}
+supabase.auth.onAuthStateChange((_event, session) => {
+  const userId = session?.user?.id ?? null;
+  if (guestMode && !userId) return; // 게스트로 둘러보는 중에는 "로그인 없음" 상태를 다시 그리지 않음
+  if (userId === currentUserId) return; // 같은 사용자면 다시 그리지 않음 (토큰 갱신 등)
+  currentUserId = userId;
+  guestMode = false;
+
+  disposeCurrent?.();
+  disposeCurrent = null;
+
+  if (session) {
+    renderHome(root, { session }).then(dispose => {
+      disposeCurrent = dispose;
+    });
+  } else {
+    showLogin();
+  }
+});

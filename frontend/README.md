@@ -9,13 +9,13 @@ Node.js 22.12 이상에서 이 폴더 기준으로 실행합니다.
 
 ```bash
 npm install
-npm run dev        # http://127.0.0.1:5173 (개발 모드에서는 개발용 패널이 보임)
+npm run dev        # http://127.0.0.1:5173 (로그인 또는 "로그인 없이 둘러보기"로 들어가면 홈 화면에 개발용 패널이 항상 보임)
 npm test           # 점수 구간·이동 경로·행동 전환 검사 (11개)
 npm run build      # dist/ 생성
 npm run preview    # 빌드 결과 확인
 ```
 
-주소 뒤에 `?score=85`처럼 붙이면 시작 점수를 바꿀 수 있고, `?dev=1`을 붙이면 빌드 결과에서도 개발용 패널이 나옵니다.
+로그인 화면이 앱 진입점(`src/main.js`)이 되면서 URL 파라미터(`?score=`·`?dev=1`)는 더 이상 쓰지 않습니다. 홈 화면(`src/app/screens/home.js`)이 `createVillage`를 부를 때 항상 `dev: true`를 넘겨서, 로그인 계정이든 게스트든 홈 화면에 개발용 패널(청결 점수 슬라이더·행동 버튼)이 뜹니다. 이 패널의 조작은 화면 미리보기용이며 실제 점수(로그인 계정은 `profiles.score`, 게스트는 메모리 값)를 저장하지 않습니다.
 
 ## 세 가지 상태
 
@@ -81,7 +81,7 @@ API 키나 비밀번호는 이 폴더의 코드에 넣지 않습니다.
 
 ```text
 src/
-  main.js                 개발용 실행 (가짜 점수·가짜 인증)
+  main.js                 앱 진입 — 로그인/게스트/홈 화면 전환 (Supabase 연결은 app/ 폴더, 구조는 연결명세 참고)
   village.js              createVillage 와 연결 약속(API), 렌더러·카메라·클릭 처리
   config.js               점수 구간, 전환 시간, 에셋 경로, 미션 목록
   states/mood.js          점수 → 상태, 부드러운 전환 가중치, 먼지·시듦 정도

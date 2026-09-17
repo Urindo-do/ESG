@@ -14,18 +14,18 @@
 
 - **지금 단계 파일의 "만들거나 고칠 파일"에 적힌 경로만** 고친다. 그 밖의 파일을 고쳐야 할 것 같으면 **고치지 말고 사람에게 먼저 묻는다.**
 - `개발/체크리스트.md`는 단계가 끝났을 때 **사람이** 체크한다.
-- **수정 금지**: `reference/**` (박제된 참고 코드), `data/raw/**` (받은 원본 데이터).
+- **수정 금지**: `reference/**` (박제된 참고 코드), `data/raw/**` (받은 원본 데이터), `frontend/assets-src/**` (3D 에셋을 다시 만들 때만 예외 — 재생성 방법은 `assets-src/README.md`).
 - **사람이 요청할 때만**: `기획서/**`, `개발/연결명세.md`, `AGENTS.md`, `CLAUDE.md`, `README.md`.
 
 ## 3. 금지 조항
 
 - **API 키·비밀번호·관리자 키(`service_role`, `sb_secret_…`)를 코드·문서·커밋·대화에 쓰지 않는다.** 프론트에는 공개 키(`sb_publishable_…` 또는 `anon`)만 쓴다. LLM 키는 Supabase 함수 비밀값 `LLM_API_KEY`로만 읽는다.
 - **연결 명세에 없는 필드·경로·`result` 값·함수 이름을 만들지 않는다.** 필요하면 명세를 먼저 고치자고 사람에게 제안한다.
-- **점수·하루 한도·감소 규칙 숫자를 `supabase/functions/_shared/rules.ts` 밖에 직접 쓰지 않는다.** 청결 단계 경계값은 `frontend/src/village/states/cleanliness.js` 밖에 쓰지 않는다.
+- **점수·하루 한도·감소 규칙 숫자를 `supabase/functions/_shared/rules.ts` 밖에 직접 쓰지 않는다.** 청결 단계 경계값(`MOOD_THRESHOLDS`)은 `frontend/src/config.js` 밖에 쓰지 않는다.
 - **LLM 응답에서 점수를 받지 않는다.** LLM은 명세 §5의 판정 JSON만 돌려주고, 점수는 규칙 코드가 정한다.
 - **브라우저에서 점수·기록을 DB에 직접 쓰지 않는다.** 쓰기는 Edge Function(관리자 키)만 한다.
 - **Supabase 대시보드에서 실행한 SQL은 `supabase/migrations/`에 같은 내용의 파일로 남긴다.**
-- **마을 모듈(`frontend/src/village/`)은 로그인·카메라·Supabase를 직접 다루지 않는다.** 명세 §4의 API로만 주고받는다.
+- **3D 마을 관련 파일(`frontend/src/village.js`·`config.js`·`scene/`·`world/`·`character/`·`behaviors/`·`states/`·`ui/`)은 로그인·카메라·Supabase를 직접 다루지 않는다.** 명세 §4의 API로만 주고받는다.
 - **git 명령(add·commit·push)은 실행하지 않는다.** 사람이 단계 파일의 "올리기" 명령으로 직접 한다. 파일 삭제·배포·비밀값 등록도 사람에게 보여주고 확인받은 뒤에만.
 - **지금 단계 밖의 기능을 미리 만들지 않는다.** 다음 단계에서 할 일이 보이면 메모로만 남긴다.
 - **체크리스트에 체크(☑)하지 않는다.** 사람이 직접 확인한 뒤 사람이 한다.

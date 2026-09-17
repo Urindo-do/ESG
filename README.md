@@ -30,25 +30,32 @@ ESG/
 │  ├─ 환경이_기획서_복붙용.md        # hwp 내용을 옮긴 마크다운 (깃허브에서 바로 읽힘)
 │  ├─ 환경이_AI_아키텍처.png        # AI/서비스 아키텍처 다이어그램
 │  ├─ 환경이_3D화면_프롬프트.md      # 3D 홈 화면(캐릭터·마을) 제작용 프롬프트
-│  └─ 환경이_캐릭터_콘셉트.png      # 캐릭터 콘셉트 이미지 (이미지 속 이름은 '지구별이')
+│  └─ 환경이_캐릭터_콘셉트.png      # 초기 콘셉트 이미지 (도토리 모자·지구별이) — 실제로 만든 3D 캐릭터는 새싹 후드 디자인, 이름은 '환경이'로 확정 (frontend/ 참고)
 ├─ data/                          # 공식 인증 제품 데이터 — data/README.md
 ├─ 시연/                           # 테스트·시연 사진, 시연 순서표 — 시연/README.md
+├─ frontend/                      # 3D 환경이 마을 (9/17 팀원 완성, S1·S12 대체) — 실행법은 frontend/README.md
+│  ├─ src/                        # 캐릭터·마을·행동·상태(happy/기본/sad)·UI 코드
+│  ├─ public/models/              # hwangyeongi.glb(캐릭터), village.glb(마을 에셋)
+│  └─ public/textures/            # 표정 텍스처
+├─ assets-src/                    # 3D 에셋 원본 (Blender 스크립트, .blend, 기준 이미지) — assets-src/README.md
 └─ reference/
    └─ danbi-hanok-day/            # 3D 프롬프트의 원형이 된 참고 구현 (수정 금지)
 ```
 
-단계를 진행하면 아래 폴더가 생깁니다.
+단계를 더 진행하면 아래 폴더가 생깁니다.
 
 ```
-├─ frontend/                      # S1~ : Vite 웹 (src/app = 화면, src/village = 마을)
+├─ frontend/src/app/              # S3~ : 로그인·홈·촬영·결과·기록 화면 (frontend/src/village.js를 가져다 씀)
 └─ supabase/                      # S2~ : DB SQL, Edge Functions(판정·상태)
 ```
 
 `reference/danbi-hanok-day`는 그대로 베껴 쓸 코드가 아니라 **구조를 참고하는 용도**입니다. 실행하려면 그 폴더 안에서 `npm install` 후 `npm run dev`.
 
+`frontend/`는 원래 S1(2D 대역)·S12(3D)에서 만들 예정이었는데, 3D 데이터 작업을 하던 팀원이 3D 마을 전체를 먼저 완성해서 가져왔습니다 (2026-09-17). 그래서 청결 단계는 5단계가 아니라 **3단계(happy/기본/sad)**로, 캐릭터 디자인도 새싹 후드로 바뀌었습니다 — 자세한 내용은 [`개발/연결명세.md`](개발/연결명세.md#6-결정-기록)와 [`frontend/README.md`](frontend/README.md) 참고.
+
 ## 기술 스택
 
-- **Frontend**: Vite + 바닐라 JavaScript + Three.js (마을은 2D 대역으로 시작해 3D로 교체)
+- **Frontend**: Vite + 바닐라 JavaScript + Three.js (3D 마을 완성됨), Blender로 만든 GLB 캐릭터·마을 에셋
 - **Backend / Infra**: Supabase (Auth, Postgres, Storage, Edge Functions)
 - **AI**: 멀티모달 LLM API (사진 속 빈 그릇·제품·문구 판정)
 - **Data**: Python + Pandas (공공데이터 인증 제품 전처리)

@@ -16,3 +16,12 @@ Thumbs.db
 
 # 로그
 *.log
+
+# Python (data/scripts)
+__pycache__/
+.venv/
+.ipynb_checkpoints/
+
+# Supabase CLI 임시 파일
+supabase/.temp/
+supabase/.branches/

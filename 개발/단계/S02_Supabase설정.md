@@ -55,11 +55,11 @@
 
 ## 확인
 
-- [ ] Table Editor에 `profiles`, `missions`, `eco_products`가 있다
-- [ ] Authentication → Users → **Add user**(자동 확인 체크)로 테스트 사용자 생성 → `profiles`에 그 사용자 행이 생기고 `score` 50, `nickname` '새싹'
-- [ ] Storage에 `mission-photos` 버킷이 있고 Public이 아니다
-- [ ] SQL Editor에서 `select * from search_eco_products('아이시스', 5);` 가 **오류 없이** 실행된다 (아직 데이터가 없어 0행이 정상)
-- [ ] 저장소 폴더에 `supabase/config.toml`과 `supabase/migrations/20260917000001_init.sql`이 있다
+- [x] Table Editor에 `profiles`, `missions`, `eco_products`가 있다 — 확인 9/18 (대시보드 화면)
+- [x] Authentication → Users → **Add user**(자동 확인 체크)로 테스트 사용자 생성 → `profiles`에 그 사용자 행이 생기고 `score` 50, `nickname` '새싹' — 확인 9/18 (가입 3건 모두 50·'새싹' → 트리거 동작)
+- [x] Storage에 `mission-photos` 버킷이 있고 Public이 아니다 — 확인 9/18 (버킷 존재 + 정책 2개, 마이그레이션 `public=false`)
+- [ ] SQL Editor에서 `select * from search_eco_products('아이시스', 5);` 가 **오류 없이** 실행된다 (아직 데이터가 없어 0행이 정상) — **남음**: 함수는 마이그레이션에 있고 같은 파일의 트리거·정책은 살아 있지만, 실행은 아직 안 해 봤다
+- [x] 저장소 폴더에 `supabase/config.toml`과 `supabase/migrations/20260917000001_init.sql`이 있다 — 확인 9/18
 
 ## 올리기
 
